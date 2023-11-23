@@ -2,5 +2,6 @@
 # Generate access token to the admin endpoints of the API
 POST {{ app_domain }}/api/login
 Content-Type: application/json
+Accept: application/json
 
 { "username": "hello", "password": "world" }

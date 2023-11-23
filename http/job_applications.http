@@ -1,0 +1,28 @@
+### Create job application
+POST {{ app_domain }}/api/job_applications
+Content-Type: application/ld+json
+Accept: application/ld+json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "hello@example.com",
+  "phoneNumber": "+48999000999",
+  "expectedSalary": 10000
+}
+
+### Show list of not yet displayed job applications
+GET {{ app_domain }}/api/job_applications/new
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+### Show list of all job applications
+GET {{ app_domain }}/api/job_applications
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+### Show singular job application by id
+GET {{ app_domain }}/api/job_applications/3
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}

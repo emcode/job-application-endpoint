@@ -3,6 +3,7 @@
 namespace App\Persistence\Repository;
 
 use App\Persistence\Entity\JobApplication;
+use App\Persistence\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,28 +22,23 @@ class JobApplicationRepository extends ServiceEntityRepository
         parent::__construct($registry, JobApplication::class);
     }
 
-//    /**
-//     * @return JobApplication[] Returns an array of JobApplication objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('j')
-//            ->andWhere('j.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('j.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return JobApplication[]
+     */
+    public function findNotDisplayedYet(): array
+    {
+        $qb = $this->createQueryBuilder('ja');
+        $ex = $qb->expr();
+        $qb->where($ex->isNull('ja.firstDisplayDateTime'));
+        return $qb->getQuery()->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?JobApplication
-//    {
-//        return $this->createQueryBuilder('j')
-//            ->andWhere('j.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function save(JobApplication $jobApplication, bool $flush = true): void
+    {
+        $em = $this->getEntityManager();
+        $em->persist($jobApplication);
+        if ($flush) {
+            $em->flush();
+        }
+    }
 }

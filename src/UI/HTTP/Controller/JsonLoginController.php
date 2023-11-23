@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
+/**
+ * TODO: Integrate better with API Platform infrastructure / expose in Open API docs
+ */
 #[AsController]
 class JsonLoginController extends AbstractController
 {
@@ -19,13 +22,13 @@ class JsonLoginController extends AbstractController
     {
         if (null === $user) {
             return $this->json([
-                   'message' => 'missing credentials',
-             ], Response::HTTP_UNAUTHORIZED);
-       }
+                'message' => 'Missing credentials',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
         $token = $pasetoHelper->createAccessTokenBuilder()
-                              ->setSubject($user->getUserIdentifier())
-                              ->toString();
+            ->setSubject($user->getUserIdentifier())
+            ->toString();
 
         return $this->json([
             'username' => $user->getUserIdentifier(),

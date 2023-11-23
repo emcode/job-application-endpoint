@@ -11,6 +11,8 @@ use ParagonIE\Paseto\Protocol\Version4;
 use ParagonIE\Paseto\ProtocolCollection;
 use ParagonIE\Paseto\ProtocolInterface;
 use ParagonIE\Paseto\Purpose;
+use ParagonIE\Paseto\Rules\IssuedBy;
+use ParagonIE\Paseto\Rules\ValidAt;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use SensitiveParameter;
 use DateTimeImmutable;
@@ -39,8 +41,8 @@ readonly class PasetoHelper
     public function createAccessTokenParser(): Parser
     {
         return (new Parser())
-            ->setKey($this->getAccessTokenSigningKey())
-            ->addRule(new ValidAt)
+            ->setKey($this->getAccessTokenSigningKey()->getPublicKey())
+            ->addRule(new ValidAt())
             ->addRule(new IssuedBy($this->accessTokenIssuer))
             ->setPurpose(Purpose::public())
             ->setAllowedVersions(new ProtocolCollection($this->version()))
