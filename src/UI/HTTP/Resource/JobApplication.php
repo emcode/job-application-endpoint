@@ -11,7 +11,6 @@ use App\Persistence\Entity\ExperienceLevel;
 use App\UI\HTTP\OperationName;
 use App\UI\HTTP\DataProvider\JobApplicationProvider;
 use App\UI\HTTP\StateProcessor\JobApplicationCreationProcessor;
-use App\UI\HTTP\StateProcessor\JobApplicationRetrievalProcessor;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 

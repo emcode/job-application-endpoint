@@ -4,4 +4,7 @@ POST {{ app_domain }}/api/login
 Content-Type: application/json
 Accept: application/json
 
-{ "username": "hello", "password": "world" }
+{
+  "username": "hello",
+  "password": "world"
+}

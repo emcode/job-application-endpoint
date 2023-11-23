@@ -14,10 +14,14 @@ enum ExperienceLevel: int
     {
         Assert::greaterThan($salaryInCents, 0);
 
-        return match ($salaryInCents) {
-            $salaryInCents < 5_000_00 => self::Junior,
-            $salaryInCents < 10_000_00 => self::Regular,
-            default => self::Senior,
-        };
+        if ($salaryInCents < 5_000_00) {
+            return self::Junior;
+        }
+
+        if ($salaryInCents < 10_000_00) {
+            return self::Regular;
+        }
+
+        return self::Senior;
     }
 }

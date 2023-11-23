@@ -57,4 +57,9 @@ class JobApplication
             'estimatedExperienceLevel' => $this->estimatedExperienceLevel,
         ];
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 }

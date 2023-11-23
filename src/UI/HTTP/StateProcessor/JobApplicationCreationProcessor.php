@@ -10,6 +10,7 @@ use App\Persistence\Repository\JobApplicationRepository;
 use App\UI\HTTP\Resource\JobApplication as JobApplicationResource;
 use App\Persistence\Entity\JobApplication as JobApplicationEntity;
 use InvalidArgumentException;
+
 class JobApplicationCreationProcessor implements ProcessorInterface
 {
     public function __construct(
