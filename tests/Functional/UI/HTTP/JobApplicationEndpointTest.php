@@ -76,6 +76,13 @@ class JobApplicationEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('hydra:member', $responseData);
     }
 
+    public function testListOfNewJobApplicationChangesAfterLoadingByAdminUser(): void
+    {
+        $this->markTestIncomplete("Implement test for /api/job_applications/new");
+        // TODO: write test that checks whether how behaves (applications
+        //       disappear from results of this specific endpoint)
+    }
+
     public function testSingularJobApplicationCanLoadedByAdminUser(): void
     {
         $client = static::createClient();

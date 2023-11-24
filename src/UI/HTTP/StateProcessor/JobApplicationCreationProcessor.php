@@ -15,7 +15,8 @@ class JobApplicationCreationProcessor implements ProcessorInterface
 {
     public function __construct(
         private readonly JobApplicationRepository $jobApplicationRepository,
-    ) {
+    )
+    {
     }
 
     public function process(

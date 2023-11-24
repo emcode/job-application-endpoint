@@ -52,7 +52,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public static function createExample(
         string $username = 'example',
         string $password = 'example',
-    ): User {
+    ): User
+    {
         return new User(
             $username,
             $password,

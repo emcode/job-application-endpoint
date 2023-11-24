@@ -11,7 +11,8 @@ readonly class AccessTokenHandler implements AccessTokenHandlerInterface
 {
     public function __construct(
         private PasetoHelper $pasetoHelper,
-    ) {
+    )
+    {
     }
 
     public function getUserBadgeFrom(string $accessToken): UserBadge

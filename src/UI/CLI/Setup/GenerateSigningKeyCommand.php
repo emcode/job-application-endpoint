@@ -23,7 +23,8 @@ class GenerateSigningKeyCommand extends Command
     public function __construct(
         private PasetoHelper $pasetoHelper,
         string $name = null
-    ) {
+    )
+    {
         parent::__construct($name);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Persistence\Entity;
 
 use App\Persistence\Repository\JobApplicationRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
 
@@ -28,10 +29,11 @@ class JobApplication
         #[ORM\Column]
         private ExperienceLevel $estimatedExperienceLevel,
         #[ORM\Column(nullable: true)]
-        private ?\DateTimeImmutable $firstDisplayDateTime = null,
+        private ?DateTimeImmutable $firstDisplayDateTime = null,
         #[ORM\Column]
-        private \DateTimeImmutable $created = new \DateTimeImmutable()
-    ) {
+        private DateTimeImmutable $created = new DateTimeImmutable()
+    )
+    {
         Assert::notEmpty($this->firstName);
         Assert::maxLength($this->firstName, 64);
         Assert::notEmpty($this->lastName);

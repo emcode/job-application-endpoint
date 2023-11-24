@@ -71,6 +71,7 @@ class JobApplication
         #[ApiProperty]
         #[Groups(['read'])]
         public ?ExperienceLevel $estimatedExperienceLevel = null,
-    ) {
+    )
+    {
     }
 }

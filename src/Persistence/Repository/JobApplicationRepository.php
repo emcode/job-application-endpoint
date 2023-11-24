@@ -4,6 +4,7 @@ namespace App\Persistence\Repository;
 
 use App\Persistence\Entity\JobApplication;
 use App\Persistence\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,14 +24,31 @@ class JobApplicationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return JobApplication[]
+     * @return int[]
      */
-    public function findNotDisplayedYet(): array
+    public function findIdsNotDisplayedYet(): array
     {
         $qb = $this->createQueryBuilder('ja');
+        $qb->select('ja.id');
         $ex = $qb->expr();
         $qb->where($ex->isNull('ja.firstDisplayDateTime'));
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleColumnResult();
+    }
+
+    public function markIdsAsAlreadyDisplayed(array $idsToMark): int
+    {
+        if (empty($idsToMark)) {
+            return 0;
+        }
+
+        $qb = $this->createQueryBuilder('ja');
+        $qb->update();
+        $qb->set('ja.firstDisplayDateTime', ':displayDateTime');
+        $qb->setParameter(':displayDateTime', (new DateTimeImmutable())->format('Y-m-d H:i:s'));
+        $ex = $qb->expr();
+        $qb->where($ex->in('ja.id', ':idsToMark'));
+        $qb->setParameter(':idsToMark', $idsToMark);
+        return $qb->getQuery()->execute();
     }
 
     public function save(JobApplication $jobApplication, bool $flush = true): void

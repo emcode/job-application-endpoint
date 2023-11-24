@@ -17,7 +17,8 @@ class JobApplicationProvider implements ProviderInterface
 {
     public function __construct(
         private readonly JobApplicationRepository $jobApplicationRepository,
-    ) {
+    )
+    {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
@@ -38,21 +39,21 @@ class JobApplicationProvider implements ProviderInterface
 
         if ($operation instanceof GetCollection) {
 
-            if (OperationName::GET_NEW_JOB_APPLICATIONS === $operation->getName())
-            {
-                // TODO: mark retrieved items as already displayed
+            if (OperationName::GET_NEW_JOB_APPLICATIONS === $operation->getName()) {
                 // TODO: support for pagination / sorting / filtering
+                $unseenIds = $this->jobApplicationRepository->findIdsNotDisplayedYet();
+                $this->jobApplicationRepository->markIdsAsAlreadyDisplayed($unseenIds);
+
                 return array_map(
-                    fn (JobApplicationEntity $e) => new JobApplicationResource(... $e->exposeDataForHttpApi()),
-                    $this->jobApplicationRepository->findNotDisplayedYet(),
+                    fn(JobApplicationEntity $e) => new JobApplicationResource(... $e->exposeDataForHttpApi()),
+                    $this->jobApplicationRepository->findBy(['id' => $unseenIds]),
                 );
             }
 
-            if (OperationName::GET === $operation->getName())
-            {
+            if (OperationName::GET === $operation->getName()) {
                 // TODO: support for pagination / sorting / filtering
                 return array_map(
-                    fn (JobApplicationEntity $e) => new JobApplicationResource(... $e->exposeDataForHttpApi()),
+                    fn(JobApplicationEntity $e) => new JobApplicationResource(... $e->exposeDataForHttpApi()),
                     $this->jobApplicationRepository->findAll(),
                 );
             }

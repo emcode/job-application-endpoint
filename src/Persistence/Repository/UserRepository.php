@@ -27,7 +27,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function refreshUser(UserInterface $user): UserInterface
     {
-       return $this->loadUserByIdentifier($user->getUserIdentifier());
+        return $this->loadUserByIdentifier($user->getUserIdentifier());
     }
 
     public function supportsClass(string $class): bool
@@ -38,11 +38,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $u = $this->createQueryBuilder('u')
-             ->where('u.username = :username')
-             ->setParameter(':username', $identifier)
-             ->getQuery()
-             ->getOneOrNullResult()
-        ;
+            ->where('u.username = :username')
+            ->setParameter(':username', $identifier)
+            ->getQuery()
+            ->getOneOrNullResult();
 
         if (null === $u) {
             throw new UserNotFoundException();

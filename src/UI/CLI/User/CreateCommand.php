@@ -30,16 +30,15 @@ class CreateCommand extends Command
     {
         $this
             ->addArgument(
-            'username',
-            InputArgument::REQUIRED,
-            'Username',
+                'username',
+                InputArgument::REQUIRED,
+                'Username',
             )
             ->addArgument(
                 'password',
                 InputArgument::REQUIRED,
                 'Password'
-            )
-        ;
+            );
     }
 
 

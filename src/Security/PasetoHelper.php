@@ -27,7 +27,8 @@ readonly class PasetoHelper
         private string $accessTokenSigningKey,
         #[Autowire('%env(ACCESS_TOKEN_ISSUER)%')]
         private string $accessTokenIssuer,
-    ) {
+    )
+    {
         Assert::notEmpty(
             $this->accessTokenIssuer,
             'Please setup ACCESS_TOKEN_ISSUER to non empty value',
@@ -45,8 +46,7 @@ readonly class PasetoHelper
             ->addRule(new ValidAt())
             ->addRule(new IssuedBy($this->accessTokenIssuer))
             ->setPurpose(Purpose::public())
-            ->setAllowedVersions(new ProtocolCollection($this->version()))
-        ;
+            ->setAllowedVersions(new ProtocolCollection($this->version()));
     }
 
     public function createAccessTokenBuilder(): Builder
