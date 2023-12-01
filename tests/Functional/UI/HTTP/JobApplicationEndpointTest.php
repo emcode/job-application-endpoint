@@ -13,10 +13,6 @@ class JobApplicationEndpointTest extends ApiTestCase
     public function testJobApplicationCanBeSavedByAnonUser(): void
     {
         $client = static::createClient();
-        /** @var UserGenerator $userGenerator */
-        $userGenerator = $client->getContainer()->get(UserGenerator::class);
-        $user = $userGenerator->aUser();
-        $client->loginUser($user);
         $response = $client->request(
             Request::METHOD_POST,
             '/api/job_applications',
